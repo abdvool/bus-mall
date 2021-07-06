@@ -1,6 +1,48 @@
 'use strict'
 
 
+let buttel = document.getElementById('butt')
+buttel.addEventListener('click', clickbutton)
+
+function clickbutton(event){
+
+
+    let resultel = document.getElementById('results');
+    
+    for(let i=0; i < busimages.length; i++){
+
+        let liel = document.createElement('li');
+        
+        liel.textContent = `${busimages[i].busname} has ${busimages[i].vote} votes and it was seen ${busimages[i].views} times `
+        resultel.appendChild(liel);
+votes.push(busimages[i].vote)
+chartviews.push(busimages[i].views)
+
+    }
+   
+
+
+    leftimgel.removeEventListener('click', handelClicks)
+    midimgel.removeEventListener('click', handelClicks)
+    rightimgel.removeEventListener('click', handelClicks)
+    chartrender()
+    savetolocal()
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 let attemptel = document.getElementById('attempt');
 let containerel = document.getElementById('container');
@@ -119,33 +161,11 @@ function handelClicks(event) {
 } else {
 
     
-    let resultel = document.getElementById('results');
-    
-    for(let i=0; i < busimages.length; i++){
-
-        let liel = document.createElement('li');
-        
-        liel.textContent = `${busimages[i].busname} has ${busimages[i].vote} votes and it was seen ${busimages[i].views} times `
-        resultel.appendChild(liel);
-votes.push(busimages[i].vote)
-chartviews.push(busimages[i].views)
-
-    }
    
 
-
-    leftimgel.removeEventListener('click', handelClicks)
-    midimgel.removeEventListener('click', handelClicks)
-    rightimgel.removeEventListener('click', handelClicks)
-    chartrender()
-    savetolocal()
 }
 
-
-
 }
-
-
 
 
 function savetolocal(){
