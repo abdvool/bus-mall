@@ -1,3 +1,7 @@
+'use strict'
+
+
+
 let attemptel = document.getElementById('attempt');
 let containerel = document.getElementById('container');
 let leftimgel = document.getElementById('leftimg');
@@ -22,6 +26,7 @@ function Busimage(busname) {
     chartnames.push(this.busname)
 
 }
+
 
 
 let images = ['bag.jpg', 'banana.jpg', 'bathroom.jpg', 'boots.jpg', 'breakfast.jpg', 'bubblegum.jpg', 'chair.jpg', 'cthulhu.jpg', 'dog-duck.jpg', 'dragon.jpg', 'pen.jpg', 'pet-sweep.jpg', 'scissors.jpg', 'shark.jpg', 'sweep.png', 'unicorn.jpg', 'tauntaun.jpg', 'water-can.jpg', 'wine-glass.jpg',]
@@ -108,7 +113,8 @@ function handelClicks(event) {
 
         busimages[rightindex].vote++;
     }
-    renderimage(); 
+
+    renderimage();
 
 } else {
 
@@ -123,13 +129,16 @@ function handelClicks(event) {
         resultel.appendChild(liel);
 votes.push(busimages[i].vote)
 chartviews.push(busimages[i].views)
+
     }
    
+
 
     leftimgel.removeEventListener('click', handelClicks)
     midimgel.removeEventListener('click', handelClicks)
     rightimgel.removeEventListener('click', handelClicks)
     chartrender()
+    savetolocal()
 }
 
 
@@ -139,6 +148,22 @@ chartviews.push(busimages[i].views)
 
 
 
+function savetolocal(){
+
+    let data = JSON.stringify(busimages);
+    localStorage.setItem('buss',data);
+}
+
+function readfromlocal(){
+   let stringobject = localStorage.getItem('buss')
+
+   let normalobject = JSON.parse(stringobject);
+   
+   if (normalobject !== null){
+    busimages = normalobject;
+}
+}
+readfromlocal()
 
 
 
@@ -199,10 +224,6 @@ let myChart = new Chart(ctx, {
 
 
 }
-
-
-
-
 
 
 
