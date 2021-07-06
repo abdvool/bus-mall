@@ -3,3 +3,21 @@ img{
     width: 400px;
     height: 400px;
 }
+
+
+#myChart{
+width: 500px;
+height: 500px;
+
+}
+#chart{
+
+    width: 532px;
+    height: 319px;
+}
+
+
+#container{
+
+    margin-left: 500px;
+}

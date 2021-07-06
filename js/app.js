@@ -8,14 +8,19 @@ let resultel = document.getElementById('results');
 let busimages = [];
 let attempts = 0;
 let maxattempts = 25;
+let chartnames = [];
+let votes = [];
+let chartviews = [];
 
 function Busimage(busname) {
     this.busname = busname.split('.')[0];
     this.img = 'img/' + busname;
     this.vote = 0;
     this.views =0;
-
+    
     busimages.push(this);
+    chartnames.push(this.busname)
+
 }
 
 
@@ -37,20 +42,31 @@ function randomindex() {
 let leftindex;
 let midindex;
 let rightindex;
- 
+let newindex = [];
+
+
 function renderimage() {
 
     leftindex = randomindex();
      midindex = randomindex();
      rightindex = randomindex();
 
-    while (leftindex === rightindex || leftindex === midindex || midindex === rightindex) {
+    while (leftindex === rightindex || leftindex === midindex || midindex === rightindex || newindex.includes(leftindex) || newindex.includes(midindex) || newindex.includes(rightindex) )
+    
+    {
 
         leftindex = randomindex();
         midindex = randomindex();
         rightindex = randomindex();
 
+
+
     }
+    newindex=[];
+    newindex.push(rightindex,midindex,leftindex);
+    console.log(newindex);
+
+
     leftimgel.setAttribute('src', busimages[leftindex].img);
     midimgel.setAttribute('src', busimages[midindex].img);
     rightimgel.setAttribute('src', busimages[rightindex].img);
@@ -92,8 +108,7 @@ function handelClicks(event) {
 
         busimages[rightindex].vote++;
     }
-
-    renderimage();
+    renderimage(); 
 
 } else {
 
@@ -106,14 +121,15 @@ function handelClicks(event) {
         
         liel.textContent = `${busimages[i].busname} has ${busimages[i].vote} votes and it was seen ${busimages[i].views} times `
         resultel.appendChild(liel);
-
+votes.push(busimages[i].vote)
+chartviews.push(busimages[i].views)
     }
-
+   
 
     leftimgel.removeEventListener('click', handelClicks)
     midimgel.removeEventListener('click', handelClicks)
     rightimgel.removeEventListener('click', handelClicks)
-
+    chartrender()
 }
 
 
@@ -128,6 +144,61 @@ function handelClicks(event) {
 
 
 
+function chartrender(){
+let ctx = document.getElementById('myChart').getContext('2d');
+let myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: chartnames,
+        datasets: [{
+            label: '# of Votes',
+            data: votes,    
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+            
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                
+            ],
+            borderWidth: 1
+        },
+        {
+            label: '# views',
+            data: chartviews,    
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+               
+            
+            ],
+            borderColor: [
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 99, 132, 1)',
+              
+                
+            ],
+            borderWidth: 1
+        }
+    
+    ]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+
+
+
+
+}
 
 
 
